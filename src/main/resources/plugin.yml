@@ -1,0 +1,23 @@
+name: Points
+version: '${project.version}'
+main: online.aboba.points.Main
+api-version: 1.19
+prefix: Points
+authors: [ _Teleport ]
+description: MC plugin for teleporting to some points
+commands:
+  point: {}
+  points: {}
+permissions:
+  points.tp:
+    default: true
+
+  points.tp.other:
+    default: false
+    children:
+      points.tp: true
+
+  points.control:
+    default: op
+    children:
+      points.tp.other: true
