@@ -6,6 +6,8 @@ MC plugin for teleporting to some points
 
 `/point <pointName> <player>` - Teleport `player` to point with name `pointName` *(requires `points.tp.other` perm)*
 
+`/points` - view list of points *(requires `points.tp.control` perm)*
+
 `/points [add/remove] <pointName>` - add or remove point with name `pointName` *(requires `points.tp.control` perm)*
 
 **NOTE:** when you add a new point, your current coordinates are used for it
