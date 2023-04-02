@@ -29,6 +29,10 @@ public class PointsFile {
         return list;
     }
 
+    public static List<PointData> getPoints() {
+        return POINTS;
+    }
+
     public static @Nullable PointData getPoint(String name) {
         for (PointData point : POINTS) {
             if (point.getName().equals(name)) {

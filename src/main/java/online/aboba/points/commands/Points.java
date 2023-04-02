@@ -6,6 +6,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import online.aboba.points.PointData;
 import online.aboba.points.PointsFile;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
@@ -37,19 +38,30 @@ public class Points extends AbstractCommand {
             return;
         }
 
-        if (args.length > 2) {
+        if (args.length == 0) {
+            StringBuilder result = new StringBuilder("§6Points:\n§7");
+
+            for (PointData point : PointsFile.getPoints()) {
+                Location loc = point.getLocation();
+                String position = String.format("§8(x: %d y: %d z: %d)§7", (int) loc.getX(), (int) loc.getY(), (int) loc.getZ());
+                result.append(" - ").append(point.getName()).append(" ").append(position).append("\n");
+            }
+            sender.sendMessage(result.toString());
+            return;
+        }
+
+        if (args.length != 2) {
             sender.sendMessage("Bad arguments");
             return;
         }
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("You are not a player");
-            return;
-        }
-
-        Player player = (Player) sender;
-
         if (args[0].equals("add")) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("You are not a player");
+                return;
+            }
+            Player player = (Player) sender;
+
             pointsFile.add(new PointData(args[1], player.getLocation()));
             sender.sendMessage("Success!");
 
@@ -74,7 +86,7 @@ public class Points extends AbstractCommand {
 
         else if (args.length == 1) return Lists.newArrayList("add", "remove");
 
-        else if (args.length == 2 && args[1].equalsIgnoreCase("remove")) return PointsFile.getPointsNames();
+        else if (args.length == 2 && args[0].equalsIgnoreCase("remove")) return PointsFile.getPointsNames();
 
         return Lists.newArrayList();
     }
